@@ -20,10 +20,12 @@ def show_flats(request):
     flats = Flat.objects.all()
     if town:
         flats = flats.filter(town=town)
+    if new_building:
+        flats = flats.filter(new_building=True)
     if min_price:
-        flats = flats.filter(price__gt=min_price)
+        flats = flats.filter(price__gte=min_price)
     if max_price:
-        flats = flats.filter(price__lt=max_price)
+        flats = flats.filter(price__lte=max_price)
 
     towns = Flat.objects.values_list(
         'town', flat=True).distinct().order_by('town')
