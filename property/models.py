@@ -5,7 +5,11 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    new_building = models.BooleanField('Новостройка', null=True, blank=True)
+    new_building = models.BooleanField(
+        'Новостройка',
+        null=True,
+        blank=True,
+        db_index=True)
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
@@ -92,6 +96,7 @@ class Owner(models.Model):
     flats = models.ManyToManyField(
         Flat,
         verbose_name='квартиры в собственности',
+        blank=True,
         related_name="owners")
 
     def __str__(self):
